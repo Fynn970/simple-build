@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -14,7 +15,11 @@ import androidx.annotation.ColorInt
 import com.example.simple_build.R
 import com.xfg.simple_build.tab.common.IXTab
 
-class XTabBottom: RelativeLayout, IXTab<XTabBottomInfo<*>> {
+class XTabBottom @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr), IXTab<XTabBottomInfo<*>> {
 
     var tabInfo: XTabBottomInfo<*>? = null
         private set
@@ -22,13 +27,7 @@ class XTabBottom: RelativeLayout, IXTab<XTabBottomInfo<*>> {
     private lateinit var tabIconView: TextView
     private lateinit var tabNameView: TextView
 
-    constructor(context: Context?):this(context,null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ){
+    init{
         init()
     }
 

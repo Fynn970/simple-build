@@ -18,13 +18,20 @@ import com.xfg.simple_build.tab.common.IXTabLayout
 import com.xfg.simple_build.utils.DisplayUtil
 import com.xfg.simple_build.utils.XViewUtil
 
-class XTabBottomLayout: FrameLayout, IXTabLayout<XTabBottom, XTabBottomInfo<*>> {
+class XTabBottomLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr), IXTabLayout<XTabBottom, XTabBottomInfo<*>> {
 
-    private val tabSelectedChangeListener: MutableList<IXTabLayout.OnTabSelectedListener<XTabBottomInfo<*>>> = mutableListOf()
+    private val tabSelectedChangeListener: MutableList<IXTabLayout.OnTabSelectedListener<XTabBottomInfo<*>>> =
+        mutableListOf()
     private var selectedInfo: XTabBottomInfo<*>? = null
     private var bottomAlpha = 1f
+
     //tabbottom高度
-    private var tabBottomHeight:Float = 50f
+    private var tabBottomHeight: Float = 50f
+
     //tabbottom头部线条的高度
     private var bottomLineHeight = 0.5f
     private var bottomLineColor = "#dfe0e1"
@@ -32,21 +39,13 @@ class XTabBottomLayout: FrameLayout, IXTabLayout<XTabBottom, XTabBottomInfo<*>> 
 
     private val TAG_TAB_BOTTOM = "TAG_TAB_BOTTOM"
 
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-
     override fun findTab(data: XTabBottomInfo<*>): XTabBottom? {
 
         val ll = findViewWithTag<ViewGroup>(TAG_TAB_BOTTOM)
-        for (i in ll.children){
-            if (i is XTabBottom){
+        for (i in ll.children) {
+            if (i is XTabBottom) {
                 val tab = i as XTabBottom
-                if (tab.tabInfo == data){
+                if (tab.tabInfo == data) {
                     return tab
                 }
             }
@@ -63,21 +62,21 @@ class XTabBottomLayout: FrameLayout, IXTabLayout<XTabBottom, XTabBottomInfo<*>> 
     }
 
     override fun inflateInfo(infoList: List<XTabBottomInfo<*>>) {
-        if (infoList.isEmpty()){
+        if (infoList.isEmpty()) {
             return
         }
         this.infoList = infoList as MutableList<XTabBottomInfo<*>>
         //移除之前已经添加的view
-        for (i in childCount - 1 until 0){
+        for (i in childCount - 1 until 0) {
             removeViewAt(i)
         }
         selectedInfo = null
         addBackground()
         val ll = FrameLayout(context)
         ll.tag = TAG_TAB_BOTTOM
-        val width = DisplayUtil.getDisplayWidthInPx(context )/ infoList.size
+        val width = DisplayUtil.getDisplayWidthInPx(context) / infoList.size
         val height = DisplayUtil.dp2px(tabBottomHeight, resources)
-        for ((index, value) in infoList.withIndex()){
+        for ((index, value) in infoList.withIndex()) {
             val params = LayoutParams(width, height)
             params.gravity = Gravity.BOTTOM
             params.leftMargin = index * width
@@ -86,7 +85,7 @@ class XTabBottomLayout: FrameLayout, IXTabLayout<XTabBottom, XTabBottomInfo<*>> 
             tabSelectedChangeListener.add(tabBottom)
             tabBottom.setXTabInfo(value)
             ll.addView(tabBottom, params)
-            tabBottom.setOnClickListener{
+            tabBottom.setOnClickListener {
                 onSelected(value)
             }
         }
@@ -98,62 +97,70 @@ class XTabBottomLayout: FrameLayout, IXTabLayout<XTabBottom, XTabBottomInfo<*>> 
         fixContentView()
     }
 
-    private fun addBottomLine(){
+    private fun addBottomLine() {
         val bottomLine = View(context)
         bottomLine.setBackgroundColor(Color.parseColor(bottomLineColor))
-        val bottomLineParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtil.dp2px(bottomLineHeight, resources))
+        val bottomLineParams = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            DisplayUtil.dp2px(bottomLineHeight, resources)
+        )
         bottomLineParams.gravity = Gravity.BOTTOM
-        bottomLineParams.bottomMargin = DisplayUtil.dp2px(tabBottomHeight - bottomLineHeight, resources)
+        bottomLineParams.bottomMargin =
+            DisplayUtil.dp2px(tabBottomHeight - bottomLineHeight, resources)
         addView(bottomLine, bottomLineParams)
         bottomLine.alpha = bottomAlpha
     }
 
-    private fun onSelected(nextInfo: XTabBottomInfo<*>){
-        for (i in tabSelectedChangeListener){
+    private fun onSelected(nextInfo: XTabBottomInfo<*>) {
+        for (i in tabSelectedChangeListener) {
             i.onTabSelectedListener(infoList.indexOf(nextInfo), selectedInfo, nextInfo)
         }
         this.selectedInfo = nextInfo
     }
 
-    private fun addBackground(){
+    private fun addBackground() {
         val view = LayoutInflater.from(context).inflate(R.layout.x_bottom_layout_bg, null)
-        val params = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtil.dp2px(tabBottomHeight, resources))
+        val params = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            DisplayUtil.dp2px(tabBottomHeight, resources)
+        )
         params.gravity = Gravity.BOTTOM
         addView(view, params)
         view.alpha = bottomAlpha
     }
 
-    fun setTabAlpha(alpha: Float){
+    fun setTabAlpha(alpha: Float) {
         this.bottomAlpha = alpha
     }
 
-    fun setTabHeight(tabBottomHeight: Float){
+    fun setTabHeight(tabBottomHeight: Float) {
         this.tabBottomHeight = tabBottomHeight
     }
-    fun setBottomLineHeight(bottomLineHeight: Float){
+
+    fun setBottomLineHeight(bottomLineHeight: Float) {
         this.bottomLineHeight = bottomLineHeight
     }
 
-    fun setBottomLineColor(bottomLineColor: String){
+    fun setBottomLineColor(bottomLineColor: String) {
         this.bottomLineColor = bottomLineColor
     }
 
-    private fun fixContentView(){
-        if ((getChildAt(0)) !is ViewGroup){
+    private fun fixContentView() {
+        if ((getChildAt(0)) !is ViewGroup) {
             return
         }
         val rootView = getChildAt(0) as ViewGroup
-        var targetView:ViewGroup? = XViewUtil.findTypeView(rootView, RecyclerView::class.java)
-        if (targetView == null){
+        var targetView: ViewGroup? = XViewUtil.findTypeView(rootView, RecyclerView::class.java)
+        if (targetView == null) {
             targetView = XViewUtil.findTypeView(rootView, ScrollView::class.java)
         }
-        if (targetView == null){
+        if (targetView == null) {
             targetView = XViewUtil.findTypeView(rootView, NestedScrollView::class.java)
         }
-        if (targetView == null){
+        if (targetView == null) {
             targetView = XViewUtil.findTypeView(rootView, AbsListView::class.java)
         }
-        if (targetView != null){
+        if (targetView != null) {
             targetView.setPadding(0, 0, 0, DisplayUtil.dp2px(tabBottomHeight, resources))
             targetView.clipToPadding = false
         }

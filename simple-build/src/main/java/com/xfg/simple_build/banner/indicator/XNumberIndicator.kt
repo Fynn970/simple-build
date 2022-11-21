@@ -12,14 +12,13 @@ import androidx.annotation.DrawableRes
 import com.example.simple_build.R
 import com.xfg.simple_build.utils.DisplayUtil
 
-class XNumberIndicator: FrameLayout, IXIndicator<FrameLayout> {
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ){
+class XNumberIndicator @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr), IXIndicator<FrameLayout> {
+
+    init {
         init()
     }
     companion object{
