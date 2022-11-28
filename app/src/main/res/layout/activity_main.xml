@@ -6,15 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <Button
-       android:id="@+id/refresh_overview"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="刷新"/>
+<!--   <Button-->
+<!--       android:id="@+id/refresh_overview"-->
+<!--       android:layout_width="wrap_content"-->
+<!--       android:layout_height="wrap_content"-->
+<!--       android:text="刷新"/>-->
 
-   <Button
-       android:id="@+id/xbannerdemo"
-       android:layout_width="wrap_content"
+<!--   <Button-->
+<!--       android:id="@+id/xbannerdemo"-->
+<!--       android:layout_width="wrap_content"-->
+<!--       android:layout_height="wrap_content"-->
+<!--       android:text="banner"/>-->
+
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recycle"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="banner"/>
+       android:paddingStart="3dp"
+       android:paddingEnd="3dp"/>
 </LinearLayout>
