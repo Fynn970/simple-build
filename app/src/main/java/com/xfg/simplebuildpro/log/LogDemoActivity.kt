@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.simplebuildpro.R
-import com.xfg.simple_build.xlog.XLog
-import com.xfg.simple_build.xlog.XLogConfig
-import com.xfg.simple_build.xlog.XLogType
+import com.xfg.simple_build.xlog.*
 
 class LogDemoActivity : AppCompatActivity() {
+
+    private lateinit var viewPrinter : XViewPrinter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_demo)
@@ -16,6 +18,9 @@ class LogDemoActivity : AppCompatActivity() {
         findViewById<Button>(R.id.logbtn).setOnClickListener {
             printLog()
         }
+        viewPrinter = XViewPrinter(this)
+        viewPrinter.getViewProvider().showFloatingView()
+        XLogManager.getInstance()?.addPrinter(viewPrinter)
     }
 
     private fun printLog(){
