@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.example.simplebuildpro.R
 import com.xfg.simple_build.xlog.*
+import com.xfg.simple_build.xlog.printer.XViewPrinter
 
 class LogDemoActivity : AppCompatActivity() {
 

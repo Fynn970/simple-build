@@ -2,7 +2,7 @@ package com.xfg.simplebuildpro
 
 import android.app.Application
 import com.google.gson.Gson
-import com.xfg.simple_build.xlog.XConsolePrinter
+import com.xfg.simple_build.xlog.printer.XConsolePrinter
 import com.xfg.simple_build.xlog.XLogConfig
 import com.xfg.simple_build.xlog.XLogManager
 

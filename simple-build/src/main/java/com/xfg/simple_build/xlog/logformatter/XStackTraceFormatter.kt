@@ -1,4 +1,4 @@
-package com.xfg.simple_build.xlog
+package com.xfg.simple_build.xlog.logformatter
 
 import java.lang.StringBuilder
 

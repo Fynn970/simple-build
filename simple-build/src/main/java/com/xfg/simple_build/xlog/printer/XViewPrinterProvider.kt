@@ -1,4 +1,4 @@
-package com.xfg.simple_build.xlog
+package com.xfg.simple_build.xlog.printer
 
 import android.graphics.Color
 import android.view.Gravity
@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.xfg.simple_build.utils.DisplayUtil
-import kotlin.math.log
 
 /**
  *@author: md

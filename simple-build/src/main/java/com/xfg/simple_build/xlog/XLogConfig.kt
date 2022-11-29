@@ -1,5 +1,9 @@
 package com.xfg.simple_build.xlog
 
+import com.xfg.simple_build.xlog.logformatter.XStackTraceFormatter
+import com.xfg.simple_build.xlog.logformatter.XThreadFormatter
+import com.xfg.simple_build.xlog.printer.XLogPrinter
+
 abstract class XLogConfig {
 
     companion object {

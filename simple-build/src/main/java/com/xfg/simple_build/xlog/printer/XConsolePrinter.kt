@@ -1,6 +1,7 @@
-package com.xfg.simple_build.xlog
+package com.xfg.simple_build.xlog.printer
 
 import android.util.Log
+import com.xfg.simple_build.xlog.XLogConfig
 import com.xfg.simple_build.xlog.XLogConfig.Companion.MAX_LEN
 
 class XConsolePrinter: XLogPrinter {

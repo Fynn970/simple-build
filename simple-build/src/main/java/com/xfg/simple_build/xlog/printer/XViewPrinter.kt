@@ -1,4 +1,4 @@
-package com.xfg.simple_build.xlog
+package com.xfg.simple_build.xlog.printer
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simple_build.R
+import com.xfg.simple_build.xlog.XLogConfig
+import com.xfg.simple_build.xlog.XLogMo
+import com.xfg.simple_build.xlog.XLogType
 
 /**
  *@author: md
@@ -18,7 +21,7 @@ class XViewPrinter(val activity: Activity): XLogPrinter {
 
     private var rootView: FrameLayout = activity.findViewById<FrameLayout>(android.R.id.content)
     private var recyclerView: RecyclerView = RecyclerView(activity)
-    private var adapter :LogAdapter = LogAdapter(android.view.LayoutInflater.from(recyclerView.context))
+    private var adapter : LogAdapter = LogAdapter(LayoutInflater.from(recyclerView.context))
     private val viewPrinterProvider: XViewPrinterProvider
     init {
         recyclerView.let{
@@ -29,7 +32,7 @@ class XViewPrinter(val activity: Activity): XLogPrinter {
         viewPrinterProvider  = XViewPrinterProvider(rootView, recyclerView)
     }
 
-    fun getViewProvider(): XViewPrinterProvider{
+    fun getViewProvider(): XViewPrinterProvider {
         return viewPrinterProvider
     }
 

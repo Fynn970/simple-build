@@ -1,5 +1,7 @@
 package com.xfg.simple_build.xlog
 
+import com.xfg.simple_build.xlog.printer.XLogPrinter
+
 class XLogManager private constructor(
     val xLogConfig: XLogConfig,
     xLogPrinters: Array<out XLogPrinter>
