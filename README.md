@@ -12,6 +12,6 @@ allprojects {
  依赖
  ```android
  dependencies {
-	        implementation 'com.github.Fynn970:simple-build:v0.0.2-alpha'
+	        implementation 'com.github.Fynn970:simple-build:v0.0.1-alpha'
 	}
 ```
