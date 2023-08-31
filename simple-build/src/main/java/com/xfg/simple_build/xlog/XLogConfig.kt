@@ -18,6 +18,7 @@ abstract class XLogConfig {
         return false
     }
 
+    //设置堆栈深度 默认为5
     open fun stackTraceDepth(): Int{
         return 5
     }
@@ -26,11 +27,12 @@ abstract class XLogConfig {
         return null
     }
 
+    //设置全局tag
     open fun getGlobalTag(): String {
         return "XTAG"
     }
 
-
+    //是否显示tag
     open fun enable(): Boolean {
         return true
     }
