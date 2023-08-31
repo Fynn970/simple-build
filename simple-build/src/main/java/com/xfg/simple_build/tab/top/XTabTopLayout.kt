@@ -123,6 +123,10 @@ class XTabTopLayout: HorizontalScrollView, IXTabLayout<XTabTop, XTabTopInfo<*>> 
                 }else{
                     scrollWidth+=scrollWidth(next, true)
                 }
+            }else if (next < 0){
+                scrollWidth -= scrollWidth(0, false)
+            }else if (next >infoList.size){
+                scrollWidth += scrollWidth(infoList.size - 1, true)
             }
         }
         return scrollWidth

@@ -1,6 +1,7 @@
 package com.xfg.simplebuildpro
 
 import android.app.Application
+import com.example.simple_build.BuildConfig
 import com.google.gson.Gson
 import com.xfg.simple_build.xlog.printer.XConsolePrinter
 import com.xfg.simple_build.xlog.XLogConfig
@@ -19,12 +20,19 @@ class MyApplication: Application() {
                     }
                 }
             }
+
+            override fun stackTraceDepth(): Int {
+                return 0
+            }
             override fun getGlobalTag(): String {
-                return "Demo"
+                return "build"
             }
 
             override fun enable(): Boolean {
-                return true
+                if (BuildConfig.DEBUG){
+                    return true
+                }
+                return false
             }
         }, XConsolePrinter())
     }
