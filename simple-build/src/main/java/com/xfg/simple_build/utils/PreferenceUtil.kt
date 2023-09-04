@@ -9,7 +9,7 @@ class PreferenceUtil<T> (private val key: String, private val default:T):ReadWri
 
     companion object {
         private const val FILENAME = "file_name";
-        private lateinit var sharedPreferences: SharedPreferences
+        lateinit var sharedPreferences: SharedPreferences
 
         fun getPreference(context: Context){
             sharedPreferences = context.applicationContext.getSharedPreferences(FILENAME, Context.MODE_PRIVATE)

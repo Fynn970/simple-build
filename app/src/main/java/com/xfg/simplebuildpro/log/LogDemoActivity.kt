@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.simplebuildpro.R
+import com.xfg.simple_build.utils.MMKVUtil
 import com.xfg.simple_build.utils.PreferenceUtil
 import com.xfg.simple_build.xlog.*
 import com.xfg.simple_build.xlog.printer.XViewPrinter
@@ -12,7 +13,7 @@ class LogDemoActivity : AppCompatActivity() {
 
     private lateinit var viewPrinter : XViewPrinter
 
-    private var count:Int by PreferenceUtil("count", 0)
+    private var count:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,16 @@ class LogDemoActivity : AppCompatActivity() {
         viewPrinter = XViewPrinter(this)
         viewPrinter.getViewProvider().showFloatingView()
         XLogManager.getInstance()?.addPrinter(viewPrinter)
+
+        MMKVUtil.getInstance().let {
+            it.putInt("counttt", 1)
+            it.all.forEach(){item->
+                XLog.d("${item.key}   ${item.value}")
+            }
+        }
+
+
+
     }
 
     private fun printLog(){
@@ -36,7 +47,7 @@ class LogDemoActivity : AppCompatActivity() {
             override fun stackTraceDepth(): Int {
                 return 0
             }
-        }, XLogType.E, "fqhdqwid", "qweqwe $count")
+        }, XLogType.E, "fqhdqwid", "qweqwe count:${count}")
         XLog.a("asd")
     }
 }
