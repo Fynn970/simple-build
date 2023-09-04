@@ -3,19 +3,19 @@ package com.xfg.simple_build.utils
 import android.content.SharedPreferences
 import com.tencent.mmkv.MMKV
 
-class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
+class MMKVUtil(): SharedPreferences, SharedPreferences.Editor{
 
     companion object {
         private var instance: MMKVUtil? = null;
         private const val DEFAULT_KEY = "KEY";
-        private lateinit var kv: MMKV
+        private lateinit var kv:MMKV
 
         private fun getMMKVById(key: String = DEFAULT_KEY) {
             kv = MMKV.mmkvWithID(key)
         }
 
-        fun getInstance(key: String = DEFAULT_KEY): MMKVUtil {
-            if (instance == null) {
+        fun getInstance(key: String = DEFAULT_KEY): MMKVUtil{
+            if (instance == null){
                 instance = MMKVUtil()
             }
             getMMKVById(key)
@@ -30,11 +30,11 @@ class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
             if (it.contains("@")) {
                 val typeList = it.split("@")
                 when (typeList[typeList.size - 1]) {
-                    String::class.simpleName -> map[typeList[0]] = getString(it, "") ?: ""
-                    Int::class.simpleName -> map[typeList[0]] = getInt(it, 0)
-                    Long::class.simpleName -> map[typeList[0]] = getLong(it, 0L)
-                    Float::class.simpleName -> map[typeList[0]] = getFloat(it, 0f)
-                    Boolean::class.simpleName -> map[typeList[0]] = getBoolean(it, false)
+                    String::class.simpleName -> map[it] = getString(it, "") ?: ""
+                    Int::class.simpleName -> map[it] = getInt(it, 0)
+                    Long::class.simpleName -> map[it] = getLong(it, 0L)
+                    Float::class.simpleName -> map[it] = getFloat(it, 0f)
+                    Boolean::class.simpleName -> map[it] = getBoolean(it, false)
                 }
             }
         }
@@ -66,7 +66,7 @@ class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
     }
 
     override fun contains(key: String?): Boolean {
-        return kv.contains(key?.let { getRealKey(it) })
+        return kv.contains(key?.let { getRealKey(it)})
     }
 
     override fun edit(): SharedPreferences.Editor {
@@ -81,11 +81,11 @@ class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
         kv.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
-    private inline fun <reified T> getTypeKey(key: String): String {
+    private inline fun <reified T> getTypeKey(key: String):String{
         val type = "@" + T::class.simpleName
-        return if (key.contains(type)) {
+        return if (key.contains(type)){
             key
-        } else {
+        }else{
             key + type
         }
     }
@@ -116,7 +116,7 @@ class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
     }
 
     override fun remove(key: String?): SharedPreferences.Editor {
-        return kv.remove(key?.let { getRealKey(key) })
+        return kv.remove(key?.let { getRealKey(key)})
 
     }
 
@@ -132,17 +132,10 @@ class MMKVUtil() : SharedPreferences, SharedPreferences.Editor {
         kv.apply()
     }
 
-    private fun getRealKey(key: String): String {
-        val typeKys = listOf(
-            getTypeKey<String>(key),
-            getTypeKey<Long>(key),
-            getTypeKey<Float>(key),
-            getTypeKey<Int>(key),
-            getTypeKey<Boolean>(key),
-            getTypeKey<MutableSet<String>>(key)
-        )
+    private fun getRealKey(key: String):String{
+        val typeKys = listOf(getTypeKey<String>(key),getTypeKey<Long>(key),getTypeKey<Float>(key),getTypeKey<Int>(key),getTypeKey<Boolean>(key), getTypeKey<MutableSet<String>>(key))
         typeKys.forEach {
-            if (kv.containsKey(it)) {
+            if (kv.containsKey(it)){
                 return it
             }
         }
